@@ -140,7 +140,12 @@ video {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+    iframe {
+        width: 100%;
+        height: auto;
+    }
     .nav-links {
+        flex-direction: column;
         display: none;
     }
 
