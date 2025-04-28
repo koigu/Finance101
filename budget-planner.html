@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Interactive Budget Planner</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #004080;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #004080;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #003060;
+        }
+        .results {
+            margin-top: 20px;
+            background-color: #e6f0ff;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Budget Planner</h1>
+        <form id="budgetForm">
+            <label for="income">Monthly Income:</label>
+            <input type="number" id="income" name="income" min="0" step="0.01" required />
+
+            <label for="housing">Housing Expenses:</label>
+            <input type="number" id="housing" name="housing" min="0" step="0.01" required />
+
+            <label for="food">Food Expenses:</label>
+            <input type="number" id="food" name="food" min="0" step="0.01" required />
+
+            <label for="transportation">Transportation Expenses:</label>
+            <input type="number" id="transportation" name="transportation" min="0" step="0.01" required />
+
+            <label for="utilities">Utilities Expenses:</label>
+            <input type="number" id="utilities" name="utilities" min="0" step="0.01" required />
+
+            <label for="other">Other Expenses:</label>
+            <input type="number" id="other" name="other" min="0" step="0.01" required />
+
+            <label for="emergency">Emergency Fund:</label>
+            <input type="number" id="emergency" name="emergency" min="0" step="0.01" required />
+
+            <label for="healthcare">Healthcare Fund:</label>
+            <input type="number" id="healthcare" name="healthcare" min="0" step="0.01" required />
+
+            <button type="submit">Calculate Budget</button>
+        </form>
+        <div id="results" class="results" style="display:none;">
+            <p><strong>Total Income:</strong> <span id="totalIncome">0.00</span></p>
+            <p><strong>Total Expenses:</strong> <span id="totalExpenses">0.00</span></p>
+            <p><strong>Remaining Budget:</strong> <span id="remainingBudget">0.00</span></p>
+        </div>
+    </div>
+
+    <script>
+        const budgetForm = document.getElementById('budgetForm');
+        const resultsDiv = document.getElementById('results');
+        const totalIncomeSpan = document.getElementById('totalIncome');
+        const totalExpensesSpan = document.getElementById('totalExpenses');
+        const remainingBudgetSpan = document.getElementById('remainingBudget');
+
+        budgetForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const income = parseFloat(budgetForm.income.value) || 0;
+            const housing = parseFloat(budgetForm.housing.value) || 0;
+            const food = parseFloat(budgetForm.food.value) || 0;
+            const transportation = parseFloat(budgetForm.transportation.value) || 0;
+            const utilities = parseFloat(budgetForm.utilities.value) || 0;
+            const other = parseFloat(budgetForm.other.value) || 0;
+            const emergency = parseFloat(budgetForm.emergency.value) || 0;
+            const healthcare = parseFloat(budgetForm.healthcare.value) || 0;
+
+            const totalExpenses = housing + food + transportation + utilities + other + emergency + healthcare;
+            const remainingBudget = income - totalExpenses;
+
+            totalIncomeSpan.textContent = income.toFixed(2);
+            totalExpensesSpan.textContent = totalExpenses.toFixed(2);
+            remainingBudgetSpan.textContent = remainingBudget.toFixed(2);
+
+            resultsDiv.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
